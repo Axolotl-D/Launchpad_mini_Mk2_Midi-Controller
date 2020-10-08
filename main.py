@@ -87,7 +87,7 @@ print("Attaching MIDI input callback handler.")
 midiin.set_callback(MidiInputHandler(port_name))
 print("Entering main loop. Press Control-C to exit.")
 try:
-    # Just wait for keyboard interrupt,
+    # Just wwait for keyboard interrupt,
     # everything else is handled via the input callback.
     while True:
         time.sleep(1)
