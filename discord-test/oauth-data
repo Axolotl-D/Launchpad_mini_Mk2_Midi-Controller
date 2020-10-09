@@ -1,0 +1,51 @@
+client-id:'764157420997836830'
+client-secret:-ypi2Vonk6p4K8u1clOsfKrsPNXLVHAj
+https://discord.com/api/oauth2/authorize?client_id=764157420997836830&redirect_uri=localhost%3A5000&response_type=code&scope=identify%20email%20connections%20guilds%20guilds.join%20gdm.join%20applications.builds.upload%20messages.read%20webhook.incoming%20rpc.notifications.read%20rpc%20relationships.read%20activities.write%20activities.read%20applications.entitlements%20applications.store.update%20applications.builds.read
+
+
+import os
+
+from flask import Flask, redirect, url_for
+from flask_discord import DiscordOAuth2Session, requires_authorization, Unauthorized
+
+app = Flask(__name__)
+
+os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "true"      # !! Only in development environment.
+
+
+app.secret_key = b"0111010101011000101010"
+app.config["DISCORD_CLIENT_ID"] = 764157420997836830
+app.config["DISCORD_CLIENT_SECRET"] = "-ypi2Vonk6p4K8u1clOsfKrsPNXLVHAj"
+app.config["DISCORD_REDIRECT_URI"] = "http://localhost:5000"
+
+discord = DiscordOAuth2Session(app)
+
+@app.route("/login/")
+def login():
+  return discord.create_session()
+
+@app.route("/callback/")
+def callback():
+  discord.callback()
+  return redirect(url_for(".me"))
+
+@app.errorhandler(Unauthorized)
+def redirect_unauthorized(e):
+    return redirect(url_for("login"))
+
+@app.route("/me/")
+@requires_authorization
+def me():
+    user = discord.fetch_user()
+    return f"""
+    <html>
+        <head>
+            <title>{user.name}</title>
+        </head>
+        <body>
+            <img src='{user.avatar_url}' />
+        </body>
+    </html>"""
+
+if __name__ == "__main__":
+    app.run()

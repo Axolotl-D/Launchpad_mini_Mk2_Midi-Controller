@@ -68,6 +68,184 @@ class MidiInputHandler(object):
                         print("Lights off")
                         MidiInputHandler.lastAction = not MidiInputHandler.lastAction
                         midiout.close_port
+        elif message[1] == 1:
+            if message[2] == 0:
+
+                print("Done")
+
+            elif message[2] != 0:
+                print("Taste 1")
+                keyboard.press(Key.f14)
+                keyboard.release(Key.f14)
+                #     True,0,15
+                with midiout:
+                    if MidiInputHandler.lastAction == True:
+                        # midiout.send_message([176, 0, 0])
+                        midiout.send_message([0x90, 1, 12])
+                        midiout.close_port
+                        print("Lights on")
+                        MidiInputHandler.lastAction = not MidiInputHandler.lastAction
+                    else:
+                        midiout.send_message([0x90, 1, 12])
+                        print("Lights off")
+                        MidiInputHandler.lastAction = not MidiInputHandler.lastAction
+                        midiout.close_port
+
+        elif message[1] == 2:
+            if message[2] == 0:
+
+                print("Done")
+
+            elif message[2] != 0:
+                print("Taste 2")
+                keyboard.press(Key.f15)
+                keyboard.release(Key.f15)
+                #     True,0,15
+                with midiout:
+                    if MidiInputHandler.lastAction == True:
+                        # midiout.send_message([176, 2, 0])
+                        midiout.send_message([0x90, 2, 12])
+                        midiout.close_port
+                        print("Lights on")
+                        MidiInputHandler.lastAction = not MidiInputHandler.lastAction
+                    else:
+                        midiout.send_message([0x90, 2, 12])
+                        print("Lights off")
+                        MidiInputHandler.lastAction = not MidiInputHandler.lastAction
+                        midiout.close_port
+
+        elif message[1] == 3:
+            if message[2] == 0:
+
+                print("Done")
+
+            elif message[2] != 0:
+                print("Taste 3")
+                keyboard.press(Key.f16)
+                keyboard.release(Key.f16)
+                #     True,0,15
+                with midiout:
+                    if MidiInputHandler.lastAction == True:
+                        # midiout.send_message([176, 2, 0])
+                        midiout.send_message([0x90, 3, 12])
+                        midiout.close_port
+                        print("Lights on")
+                        MidiInputHandler.lastAction = not MidiInputHandler.lastAction
+                    else:
+                        midiout.send_message([0x90, 3, 12])
+                        print("Lights off")
+                        MidiInputHandler.lastAction = not MidiInputHandler.lastAction
+                        midiout.close_port
+
+
+        elif message[1] == 104:
+            if message[2] == 0:
+
+                print("Done")
+
+            elif message[2] != 0:
+                print("Taste ArrowUp")
+                keyboard.press('t')
+                keyboard.release('t')
+                keyboard.press('!')
+                keyboard.release('!')
+                keyboard.press('r')
+                keyboard.release('r')
+                keyboard.press('e')
+                keyboard.release('e')
+                keyboard.press('p')
+                keyboard.release('p')
+                keyboard.press(' ')
+                keyboard.release(' ')
+                keyboard.press('@')
+                keyboard.release('@')
+                keyboard.press('k')
+                keyboard.release('k')
+                keyboard.press('a')
+                keyboard.release('a')
+                keyboard.press('w')
+                keyboard.release('w')
+                keyboard.press('a')
+                keyboard.release('a')
+                keyboard.press('i')
+                keyboard.release('i')
+                keyboard.press('i')
+                keyboard.release('i')
+                keyboard.press('_')
+                keyboard.release('_')
+                keyboard.press('n')
+                keyboard.release('n')
+                keyboard.press('e')
+                keyboard.release('e')
+                keyboard.press('k')
+                keyboard.release('k')
+                keyboard.press('o')
+                keyboard.release('o')
+                keyboard.press('#')
+                keyboard.release('#')
+                keyboard.press('8')
+                keyboard.release('8')
+                keyboard.press('6')
+                keyboard.release('6')
+                keyboard.press('7')
+                keyboard.release('7')
+                keyboard.press('9')
+                keyboard.release('9')
+                keyboard.press(Key.enter)
+                keyboard.release(Key.enter)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                #     True,0,15
+                with midiout:
+                    if MidiInputHandler.lastAction == True:
+                        # midiout.send_message([176, 0, 0])
+                        midiout.send_message([0x90, 1, 12])
+                        midiout.close_port
+                        print("Lights on")
+                        MidiInputHandler.lastAction = not MidiInputHandler.lastAction
+                    else:
+                        midiout.send_message([0x90, 1, 12])
+                        print("Lights off")
+                        MidiInputHandler.lastAction = not MidiInputHandler.lastAction
+                        midiout.close_port
+
+        elif message[1] == 144:
+            keyboard.press(Key.ctrl_l)
+            keyboard.press(Key.alt_l)
+            keyboard.press(Key.right)
+            keyboard.release(Key.right)
+            keyboard.release(Key.alt_l)
+            keyboard.release(Key.ctrl_l)
+
+#     True,0,15r
+            with midiout:
+                if MidiInputHandler.lastAction == True:
+                    # midiout.send_message([176, 2, 0])
+                    midiout.send_message([0x90, 3, 12])
+                    midiout.close_port
+                    print("Lights on")
+                    MidiInputHandler.lastAction = not MidiInputHandler.lastAction
+                else:
+                    midiout.send_message([0x90, 3, 12])
+                    print("Lights off")
+                    MidiInputHandler.lastAction = not MidiInputHandler.lastAction
+                    midiout.close_port
+
 
 
 
