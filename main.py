@@ -14,6 +14,8 @@ import rtmidi
 from pynput.keyboard import Controller, Key
 from rtmidi.midiutil import open_midiinput, open_midioutput
 
+from lightTest import sendLight
+
 log = logging.getLogger('midiin_callback')
 logging.basicConfig(level=logging.DEBUG)
 keyboard = Controller()
@@ -56,18 +58,13 @@ class MidiInputHandler(object):
                 keyboard.press(Key.f13)
                 keyboard.release(Key.f13)
                 #     True,0,15
-                with midiout:
-                    if MidiInputHandler.lastAction == True:
-                        # midiout.send_message([176, 0, 0])
-                        midiout.send_message([0x90, 0, 12])
-                        midiout.close_port
-                        print("Lights on")
-                        MidiInputHandler.lastAction = not MidiInputHandler.lastAction
-                    else:
-                        midiout.send_message([0x90, 0, 12])
-                        print("Lights off")
-                        MidiInputHandler.lastAction = not MidiInputHandler.lastAction
-                        midiout.close_port
+                if MidiInputHandler.lastAction == True:
+                    sendLight(0, "red",midiout)
+                    MidiInputHandler.lastAction = not MidiInputHandler.lastAction
+                else:
+                    sendLight(0, "green",midiout)
+                    MidiInputHandler.lastAction = not MidiInputHandler.lastAction
+
         elif message[1] == 1:
             if message[2] == 0:
 
@@ -263,6 +260,7 @@ lastAction = True
 print("Attaching MIDI input callback handler.")
 
 midiin.set_callback(MidiInputHandler(port_name))
+sendLight(0,"green",midiout)
 print("Entering main loop. Press Control-C to exit.")
 try:
     # Just wwait for keyboard interrupt,
